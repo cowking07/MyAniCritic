@@ -1,0 +1,260 @@
+/*//////////base.html\\\\\\\\\\*/
+.banner {
+    background-color: gold;
+    padding: 1rem 0;
+}
+
+.title {
+    font-size: 3rem;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
+
+.navigation-list {
+    display: flex;
+    flex-direction: row;
+    background-color: gold;
+    justify-content: space-evenly;
+    border: 1px solid #666;
+    list-style-type: none;
+}
+
+.navigation-link {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.navigation-link:hover {
+    background-color: #e6c200;
+}
+
+.dropdown {
+    font-weight: bold;
+}
+
+.dropdown-menu {
+    display: none;
+    list-style: none;
+    position: absolute;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    background-color: gold;
+    width: 75%;
+}
+
+body {
+    background-image: url('../../static/images/animeBackground.png');
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+
+/*//////////index.html\\\\\\\\\\*/
+.welcome {
+    text-align: right;
+    font-weight: bold;
+}
+
+.trend-header {
+    text-align: center;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+}
+
+.news-grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, auto);
+    border: 1px solid black;
+    margin: 1rem;
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+}
+
+.news-grid-item {
+    min-height: 2fr;
+    overflow-wrap: break-word;
+    text-align: left;
+}
+.news-title {
+    grid-column: span 3;
+}
+
+.news-author {
+    grid-column: span 3;
+}
+
+.news-link-button {
+    text-decoration: none !important;
+    color: black !important;
+}
+
+/*//////////Crew Detail Page\\\\\\\\\\\*/
+
+.crew-member-page {
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+}
+
+/*//////////Crew List Page\\\\\\\\\\\*/
+
+.crew-list-page {
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+}
+
+/*//////////Anime List Page\\\\\\\\\\\*/
+
+.anime-list-page {
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+}
+
+.anime-navigation-list {
+    list-style-type: none;
+}
+
+.anime-navigation-link {
+    font-weight: bold;
+}
+
+.anime-navigation-link:hover {
+    background-color: #e6c200;
+}
+
+/*//////////Anime Detail Page\\\\\\\\\\*/
+
+.anime-detail-page {
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+}
+
+.image-sum-flex {
+    display: flex;
+}
+
+.detail-image {
+    width: 15vw;
+    padding-right: 0.5rem;
+}
+
+.detail-text {
+    flex-grow: 3;
+}
+
+/*//////////Login/Logout Page\\\\\\\\\\\*/
+
+.login-logout-page {
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+    background-size: auto 100%;
+    display: inline-block;
+}
+
+/*//////////Register Page\\\\\\\\\\*/
+
+.register-page {
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+}
+
+/*//////////Anime Form\\\\\\\\\\*/
+
+.anime-form {
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+/*/////////Add Crew Form\\\\\\\\\\*/
+
+.add-crew-form {
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+/*/////////Anime Selection List Form\\\\\\\\\\*/
+
+.anime-selection-list {
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+}
+
+/*//////////Add Role Form\\\\\\\\\\*/
+
+.add-role {
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+/*//////////Add Character Form\\\\\\\\\\*/
+
+.add-character {
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+/*//////////Anime Crew List\\\\\\\\\\*/
+
+.anime-crew-list {
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+}
+
+/*//////////Rating Page\\\\\\\\\\*/
+
+.rating-page {
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+}
+
+/*//////////Search Results Page\\\\\\\\\\*/
+
+.search-results-page {
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+}

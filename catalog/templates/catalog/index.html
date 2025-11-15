@@ -1,0 +1,55 @@
+{%  extends 'catalog/base.html' %}
+
+{% block content %}
+    <!--Welcome statement-->
+    <div class="welcome">
+        {% if user.is_authenticated %}
+            Welcome, {{ user.username }}!
+        {% else %}
+            Welcome, Guest!
+        {% endif %}
+    </div>
+    <!--Trending Section-->
+    <div class="trend-header">
+        <h2>Trending News</h2>
+    </div>
+    <!--Setting the frame for the Trending News-->
+    {% if news %}
+        {% for article in news %}
+            <br>
+            <div class="news-grid-container">
+                <!--Row 1 of Trending News Box-->
+                <div class="news-grid-item news-title"><h4>{{ article.news_title }}</h4></div>
+                <div class="news-grid-item"></div>
+                <div class="news-grid-item"></div>
+                <!--Row 2 of Trending News Box-->
+                <div class="news-grid-item news-author"><p>by {{ article.news_author }}</p></div>
+                <div class="news-grid-item"></div>
+                <div class="news-grid-item"></div>
+                <!--Row 3 of Trending News Box-->
+                <div class="news-grid-item"></div>
+                <div class="news-grid-item">
+                    <button>
+                        <a class="news-link-button" href="{{ article.news_link }}" target="_blank" rel="noopener noreferrer">Link to Article</a>
+                    </button>
+                </div>
+                <div class="news-grid-item"></div>
+                <div class="news-grid-item">
+                    {% if article.anime_title in existing_anime %}
+                        {% for ani in anime %}
+                            {% if article.anime_title == ani.title %}
+                                <button class="news-review-button">
+                                    <a class="news-link-button" href="{{ ani.get_absolute_url }}">Click to view anime details</a>
+                                </button>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="news-grid-item"></div>
+            </div>
+            <br>
+        {% endfor %}
+    {% else %}
+        <h3>Sorry, no news available.</h3>
+    {% endif %}
+{% endblock %}

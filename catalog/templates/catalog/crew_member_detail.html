@@ -1,0 +1,11 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}{{ crew_member.first_name }} {{ crew_member.last_name }}{% endblock %}
+
+{% block content %}
+    <div class="crew-member-page">
+        <h1>{{ crew_member.first_name }} {{ crew_member.last_name }}</h1>
+            <p>{{ crew_member.description|linebreaksbr }}</p>
+            <a href="javascript:history.back()">Back to Crew List</a>
+    </div>
+{% endblock %}

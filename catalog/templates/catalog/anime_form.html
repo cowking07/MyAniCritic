@@ -1,0 +1,16 @@
+{% extends "catalog/base.html" %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <div class="anime-form">
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ form|crispy }}
+
+            <button type="submit">Save Anime</button>
+        </form>
+    </div>
+{% endblock %}

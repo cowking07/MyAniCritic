@@ -1,0 +1,38 @@
+{% extends 'catalog/base.html' %}
+{% load tz %}
+{% block title %}{{ anime.title }} {% endblock %}
+
+{% block content %}
+    <div class="anime-detail-page">
+        <h1 style="text-align: center;">{{ anime.title }}</h1>
+        <div class="image-sum-flex">
+            {% if anime.anime_image %}
+                <img class="detail-image" src="{{ anime.anime_image.url }}">
+            {% endif %}
+            <div class="detail-text">
+                <p><strong>Summary:</strong> {{ anime.summary }}</p>
+                <p><strong>Genre:</strong> {{ anime.genre.all|join:", " }}</p>
+                <p><strong>Production Studio:</strong> {{ anime.production_studio }}</p>
+                <a href="{% url 'anime_crew_list' anime_id=anime.pk %}">View Crew List</a>
+            </div>
+        </div>
+{#      Reverse for 'rating_form' with no arguments not found. 1 pattern(s) tried: ['rating_show/(?P<pk>[0-9]+)/\\Z']#}
+{#      I want to link every rating with the show and user that is being rated. #}
+        <a href="{% url 'add_rating' anime.id %}" class="btn btn-warning btn-sm">Add Rating</a>
+        <a href="{% url 'anime_list' %}">Back to Anime List</a><br>
+        <h3>Ratings</h3>
+        {% if ratings %}
+            {% for rating in ratings %}
+                <br>
+                <time datetime="{{ rating.created_at|date:'Y-m-d H:i:s' }}">
+                    {{ rating.created_at|localtime|date:"m/d/Y, P" }}
+                </time>
+                <p><strong>{{ rating.user.username }}</strong> rated {{ rating.rating }} stars.</p>
+                <p style="margin-left:40px;">{{ rating.comment }}</p>
+                <br>
+            {% endfor %}
+        {% else %}
+            No ratings yet. Be the first to review!
+        {% endif %}
+    </div>
+{% endblock %}

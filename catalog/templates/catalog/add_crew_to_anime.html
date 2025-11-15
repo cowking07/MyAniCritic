@@ -1,0 +1,17 @@
+{% extends 'catalog/base.html' %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <div class="add-crew-form">
+        <h3>Create Crew Member for "{{ anime.title }}"</h3>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit">Create Crew Member and Continue</button>
+        </form>
+
+        <a href="{% url 'anime_selection_list' %}">Cancel and go back</a>
+    </div>
+{% endblock %}

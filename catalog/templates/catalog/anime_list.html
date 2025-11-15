@@ -1,0 +1,19 @@
+{% extends "catalog/base.html" %}
+
+{% block content %}
+    <div class="anime-list-page">
+        <h1>Anime List</h1>
+        {% if anime_list %}
+            <ul class="anime-navigation-list">
+                {% for anime in anime_list %}
+                    <li>
+                        <a class="anime-navigation-link" href="{{ anime.get_absolute_url }}">{{ anime.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Anime will be added soon!</p>
+
+        {% endif %}
+    </div>
+{% endblock %}

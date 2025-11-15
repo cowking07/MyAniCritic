@@ -1,0 +1,22 @@
+{% extends "catalog/base.html" %}
+{% load tz %}
+{% block content %}
+    <div class="anime-list-page">
+        <h2>My Review Diary</h2>
+        {% if ratings %}
+            {%  for rating in ratings %}
+            <p>
+                <time datetime="{{ rating.created_at|date:'Y-m-d H:i:s' }}">
+                    {{ rating.created_at|localtime|date:"m/d/Y" }}
+                </time>
+                <strong> {{ rating.anime.title }}</strong> - {{ rating.rating }}/5
+                {% if rating.comment %}
+                    <br><p style="margin-left: 40px;">{{ rating.comment }}</p>
+                {% endif %}
+            </p>
+            {% endfor %}
+        {% else %}
+            <p> Find an anime to make your first review!</p>
+        {%  endif %}
+    </div>
+{% endblock %}

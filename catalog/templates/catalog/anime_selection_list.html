@@ -1,0 +1,15 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+    <div class="anime-selection-list">
+        <h2>Select Anime to Add Crew Members To</h2>
+        <ul class="navigation-list">
+            {% for anime in anime_list %}
+                <li class="navigation-item">
+                    <a class="navigation-link" href="{% url 'add_crew_to_anime' anime_id=anime.id %}">
+                        {{ anime.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

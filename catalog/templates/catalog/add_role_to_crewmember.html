@@ -1,0 +1,32 @@
+{% extends 'catalog/base.html' %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <div class="add-role">
+        <h3>Create Role for {{ crew_member.first_name }} {{ crew_member.last_name }} in {{ anime.title }}</h3>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" name="save-exit">Save and Exit</button>
+            <button type="submit" name="save-new">Save and Add Another Crew</button>
+            <button type="submit" name="add-character" id="add-character">Save and Add Character</button>
+        </form>
+
+        <a href="{% url 'anime_selection_list' %}">Cancel and go back</a>
+    </div>
+    <script>
+        const roleInput = document.getElementById('id_role');
+        const characterButton = document.getElementById('add-character');
+
+        roleInput.addEventListener('change', function() {
+            const checkValue = this.value;
+            if (checkValue === 'Director' || checkValue === 'Writer') {
+                characterButton.disabled = true;
+            } else {
+                characterButton.disabled = false;
+            }
+        });
+    </script>
+{% endblock %}

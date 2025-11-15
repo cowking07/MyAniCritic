@@ -1,0 +1,21 @@
+{% extends "catalog/base.html" %}
+
+{% block content %}
+<div class="crew-list-page">
+    <h1>Crew</h1>
+
+    {% if crew_list %}
+        <ul class="crew-list">
+            {% for member in crew_list %}
+                <li class="crew-card">
+                    <a class="crew-name" href="{{ member.get_absolute_url }}">
+                        {{ member.first_name }} {{ member.last_name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No crew members yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

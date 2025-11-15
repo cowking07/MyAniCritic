@@ -1,0 +1,40 @@
+{# catalog/templates/catalog/search_results.html #}
+{% extends 'catalog/base.html' %}
+{% block title %}Search – AniCritic{% endblock %}
+
+{% block content %}
+    <div class="search-results-page">
+        <h2>Search results{% if query %} for “{{ query }}”{% endif %}</h2>
+        <p class="text-muted">{{ total }} result{{ total|pluralize }}</p>
+        <hr>
+        <h4>Anime</h4>
+        {% if anime_results %}
+            <ul class="anime-list-page">
+                {% for a in anime_results %}
+                    <li class="anime-list-page">
+                        <a href="{% url 'anime_detail' a.pk %}">{{ a.title }}</a>
+                        {% if a.production_studio %} — {{ a.production_studio }}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-muted">No anime matched.</p>
+        {% endif %}
+        <h4>Crew Members</h4>
+        {% if crew_results %}
+            <ul class="crew-member-page">
+                {% for c in crew_results %}
+                    <li class="crew-member-page">
+                        <a href="{% url 'crew_member_detail' c.pk %}">{{ c.first_name }} {{ c.last_name }}</a>
+                        {% if c.crew_roles.all %}
+                            <small class="text-muted"> — {{ c.crew_roles.all|join:", " }}</small>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-muted">No crew members found.</p>
+        {% endif %}
+    </div>
+{% endblock %}
