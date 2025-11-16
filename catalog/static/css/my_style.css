@@ -123,11 +123,30 @@ body {
 }
 
 .anime-navigation-list {
+    display: flex;
+    flex-direction: row;
+    background-color: gold;
+    justify-content: space-evenly;
+    border: 1px solid #666;
     list-style-type: none;
 }
 
+.anime-list-item {
+    display: flex;
+    flex-direction: column;
+    width: 10vw;
+    height: auto;
+}
+
+.small-image {
+    width: 10vw;
+    height: 225px;
+}
+
 .anime-navigation-link {
+    margin-top: auto;
     font-weight: bold;
+    text-align: center;
 }
 
 .anime-navigation-link:hover {

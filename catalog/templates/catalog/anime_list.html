@@ -6,7 +6,10 @@
         {% if anime_list %}
             <ul class="anime-navigation-list">
                 {% for anime in anime_list %}
-                    <li>
+                    <li class="anime-list-item">
+                        <a href="{{ anime.get_absolute_url }}">
+                            <img class="small-image" src="{{ anime.anime_image.url }}" alt="{{ anime.title }}">
+                        </a>
                         <a class="anime-navigation-link" href="{{ anime.get_absolute_url }}">{{ anime.title }}</a>
                     </li>
                 {% endfor %}

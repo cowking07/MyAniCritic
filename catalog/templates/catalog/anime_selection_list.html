@@ -2,7 +2,7 @@
 {% block content %}
     <div class="anime-selection-list">
         <h2>Select Anime to Add Crew Members To</h2>
-        <ul class="navigation-list">
+        <ul class="navigation-list" style="flex-direction: column;">
             {% for anime in anime_list %}
                 <li class="navigation-item">
                     <a class="navigation-link" href="{% url 'add_crew_to_anime' anime_id=anime.id %}">
