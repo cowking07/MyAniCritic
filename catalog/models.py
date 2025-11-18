@@ -22,9 +22,9 @@ class CrewMember(models.Model):
 
         description_lines = []
         if roles_str:
-            description_lines.append("Roles:\n".join(roles_str))
+            description_lines.append("\n".join(roles_str))
         if character_str:
-            description_lines.append("Characters:\n".join(character_str))
+            description_lines.append("\n".join(character_str))
         return "\n".join(description_lines)
 
     def __str__(self):
@@ -62,7 +62,6 @@ class Anime(models.Model):
     summary = models.TextField(max_length=1000,)
     type = models.CharField(max_length=100, choices=AnimeChoices,default='Show')
     production_studio = models.CharField(max_length=100)
-    crew = models.ManyToManyField(CrewMember,)
     anime_image = models.ImageField(upload_to='images/', null=True, blank=True)
     genre = models.ManyToManyField(Genre, )
     id = models.AutoField(primary_key=True)

@@ -9,7 +9,7 @@ urlpatterns = [
     path('anime_list/', views.AnimeListView.as_view(), name='anime_list'),
     # crew-list needs to be crew_list for consistency
     path('crew/', views.CrewMemberListView.as_view(), name='crew-list'),
-    path('crew/<int:pk>/', views.CrewMemberDetailView.as_view(), name='crew_member_detail'),
+    path('crewmember/<int:pk>/', views.CrewMemberDetailView.as_view(), name='crew_member_detail'),
     path("search/", views.search, name="search"),
     path('anime_detail/<int:pk>/', views.AnimeDetailView.as_view(), name='anime_detail'),
     path('rating_form/<int:pk>/', views.add_rating, name="add_rating"),

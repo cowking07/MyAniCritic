@@ -10,7 +10,7 @@
                 {% for director in directors %}
                     <li>
                         {{ director.crew_member.first_name }} {{ director.crew_member.last_name }} -
-                        <a href="{% url 'crew_member_detail' pk=director.pk %}">View Details</a>
+                        <a href="{% url 'crew_member_detail' pk=director.crew_member.pk %}">View Details</a>
                     </li>
                 {% endfor %}
             </ul>
@@ -24,7 +24,7 @@
                 {% for writer in writers %}
                     <li>
                         {{ writer.crew_member.first_name }} {{ writer.crew_member.last_name }} -
-                        <a href="{% url 'crew_member_detail' pk=writer.pk %}">View Details</a>
+                        <a href="{% url 'crew_member_detail' pk=writer.crew_member.pk %}">View Details</a>
                     </li>
                 {% endfor %}
             </ul>
@@ -40,7 +40,7 @@
                         <strong>{{ character.character_name }}</strong> ({{ character.language }})
                         <br>
                         Actor: {{ character.crew_member.first_name }} {{ character.crew_member.last_name }} -
-                        <a href="{% url 'crew_member_detail' pk=character.pk %}">View Details</a>
+                        <a href="{% url 'crew_member_detail' pk=character.crew_member.pk %}">View Details</a>
                     </li>
                 {% endfor %}
             </ul>
