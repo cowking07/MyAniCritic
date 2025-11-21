@@ -13,6 +13,8 @@
                 {% if rating.comment %}
                     <br><p style="margin-left: 40px;">{{ rating.comment }}</p>
                 {% endif %}
+{#              anime id is inside rating model which is what caused the error#}
+                <a href=" {% url 'edit_rating' rating.anime.id rating.pk %} " class="btn btn-warning btn-sm">Edit Rating</a>
             </p>
             {% endfor %}
         {% else %}

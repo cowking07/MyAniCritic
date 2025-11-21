@@ -132,7 +132,7 @@ def add_rating(request, pk):
   if request.user.is_authenticated:
     anime = Anime.objects.get(id=pk)
     if request.method == "POST":
-      form = RatingForm(request.POST or None)
+      form = RatingForm(request.POST)
       if form.is_valid():
         data = form.save(commit=False)
         data.comment = request.POST["comment"]
@@ -146,6 +146,34 @@ def add_rating(request, pk):
     return render(request, 'catalog/rating_form.html', {"form": form, "anime": anime})
   else:
     return redirect("register:register")
+
+
+@login_required
+def edit_rating(request, anime_id, pk):
+  if request.user.is_authenticated:
+    anime = Anime.objects.get(id=anime_id)
+    rating = Rating.objects.get(id=pk)
+    #GET Request Handling The form variable was only defined within the if request.method == "POST" block, leading to
+    # UnboundLocalError for initial GET requests.
+    if request.user != rating.user:
+      return redirect("/anime_list/")
+    if request.method == "POST":
+      form = RatingForm(request.POST, instance=rating)
+      if form.is_valid():
+        data = form.save(commit=False)
+        data.comment = request.POST["comment"]
+        data.rating = request.POST["rating"]
+        data.user = request.user
+        data.anime = anime
+        data.save()
+        return redirect("/diary/")
+    else:
+      form = RatingForm(instance=rating)
+    return render(request, 'catalog/rating_form.html', {"form": form, "anime": anime})
+  else:
+      return redirect("register:register")
+
+
 
 """def edit_review(request, movie_id, review_id):
   if request.user.is_authenticated:
