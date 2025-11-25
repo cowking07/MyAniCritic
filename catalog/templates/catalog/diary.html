@@ -5,7 +5,7 @@
         <h2>My Review Diary</h2>
         {% if ratings %}
             {%  for rating in ratings %}
-            <p>
+            <div class="rating-review">
                 <time datetime="{{ rating.created_at|date:'Y-m-d H:i:s' }}">
                     {{ rating.created_at|localtime|date:"m/d/Y" }}
                 </time>
@@ -13,7 +13,7 @@
                 {% if rating.comment %}
                     <br><p style="margin-left: 40px;">{{ rating.comment }}</p>
                 {% endif %}
-            </p>
+            </div><br>
             {% endfor %}
         {% else %}
             <p> Find an anime to make your first review!</p>
