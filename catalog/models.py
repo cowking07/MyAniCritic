@@ -108,10 +108,26 @@ class RatingChoices(models.IntegerChoices):
     FOUR = 4, '4 stars'
     FIVE = 5, '5 stars'
 
+AVATAR_CHOICES = (
+    ('avatar1.jpg','Avatar 1'),
+    ('avatar2.jpg','Avatar 2'),
+    ('avatar3.jpg','Avatar 3'),
+    ('avatar4.jpg','Avatar 4'),
+    ('avatar5.jpg','Avatar 5'),
+    ('avatar6.jpg','Avatar 6'),
+    ('avatar7.jpg','Avatar 7'),
+    ('avatar8.jpg','Avatar 8'),
+    ('avatar9.jpg','Avatar 9'),
+    ('avatar10.jpg','Avatar 10'),
+    ('avatar11.jpg','Avatar 11'),
+    ('avatar12.jpg','Avatar 12'),
+)
 
 class UserProfile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   # add extra fields later like avatar, bio, etc.
+  avatar = models.CharField(max_length=100, choices=AVATAR_CHOICES, default='avatar1.jpg')
+  bio = models.TextField(max_length=500, default='Learn a little about me...')
   def __str__(self):
     return self.user.username
 
@@ -124,7 +140,7 @@ class Rating(models.Model):
         default=RatingChoices.FIVE,
         validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
-    comment = models.CharField(max_length=250,default='',blank=True)
+    comment = models.CharField(max_length=500,default='',blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

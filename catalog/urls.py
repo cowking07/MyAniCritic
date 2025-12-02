@@ -21,4 +21,6 @@ urlpatterns = [
     path('anime/<int:anime_id>/anime_crew_list/', views.anime_crew_list, name='anime_crew_list'),
     path('diary/', views.diary, name='diary'),
     path('set-timezone/', views.set_user_timezone, name='set-timezone'),
+    path('user_profile/<str:username>/', views.user_profile_view, name='user_profile'),
+    path('edit_profile/<str:username>/', views.edit_profile, name='edit_profile'),
 ]
