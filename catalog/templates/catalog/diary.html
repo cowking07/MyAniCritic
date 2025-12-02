@@ -5,7 +5,7 @@
         <h2>My Review Diary</h2>
         {% if ratings %}
             {%  for rating in ratings %}
-            <p>
+            <div class="rating-review">
                 <time datetime="{{ rating.created_at|date:'Y-m-d H:i:s' }}">
                     {{ rating.created_at|localtime|date:"m/d/Y" }}
                 </time>
@@ -16,6 +16,7 @@
 {#              anime id is inside rating model which is what caused the error#}
                 <a href=" {% url 'edit_rating' rating.anime.id rating.pk %} " class="btn btn-warning btn-sm">Edit Rating</a>
             </p>
+            </div><br>
             {% endfor %}
         {% else %}
             <p> Find an anime to make your first review!</p>

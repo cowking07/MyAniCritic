@@ -1,20 +1,19 @@
-from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
-from .models import Genre, CrewMember, Anime, Rating, TrendingNews, CrewRole, Character
-from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Genre, CrewMember, Anime, Rating, TrendingNews
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse
-from .forms import AnimeForm, CharacterForm, CrewRoleForm, CrewMemberForm
-from django.contrib import messages
-from django.shortcuts import render
-from django.db.models import Q
-from catalog.forms import RatingForm
-from django.contrib.auth.decorators import login_required
-from django.utils import timezone as django_timezone
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, JsonResponse
+from django.urls import reverse
+from django.db.models import Q
+from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone as django_timezone
+from .models import Genre, CrewMember, Anime, Rating, TrendingNews, CrewRole, Character, UserProfile
+from .forms import AnimeForm, CharacterForm, CrewRoleForm, CrewMemberForm
+from catalog.forms import RatingForm
 import json
 
 @csrf_exempt
@@ -99,6 +98,7 @@ class AnimeDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['ratings'] = self.object.ratings.all()
+        
         return context
 
 class AnimeListView(ListView):
@@ -352,3 +352,25 @@ def anime_crew_list(request, anime_id):
         'voice_actors': voice_actors,
     }
     return render(request, 'catalog/anime_crew_list.html', context)
+
+def user_profile_view(request, username):
+    target_user = get_object_or_404(User, username=username)
+    profile = get_object_or_404(UserProfile, user=target_user)
+    recent_reviews = Rating.objects.filter(user=target_user).order_by('-created_at')[:3]
+    is_owner = request.user.is_authenticated and request.user == target_user
+    context = {
+        'target_user': target_user,
+        'profile': profile,
+        'recent_reviews': recent_reviews,
+        'is_owner': is_owner,
+    }
+    return render(request, 'catalog/user_profile.html', context)
+
+def edit_profile(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = get_object_or_404(UserProfile, user=user)
+    context = {
+        'user': user,
+        'profile': profile,
+    }
+    return render(request, 'catalog/edit_profile.html', context)

@@ -1,0 +1,36 @@
+{% extends 'catalog/base.html' %}
+{% load static %}
+{% load tz %}
+{% block content %}
+<div class="profile-page">
+    <div class="profile-header">
+        <h2>{{ target_user.username }}'s Profile</h2>
+        {% if is_owner %}
+            <a style=""href="{% url 'edit_profile' username=user.username %}">Edit Profile</a>
+        {% endif %}
+    </div>
+    <img src="{% static 'avatars/'|add:profile.avatar %}" alt="User Avatar">
+    <h5>Bio:</h5>
+    <p>{{ profile.bio }}</p>
+    <h5>Favorites:</h5>
+    <p>Favorite 1</p>
+    <p>Favorite 2</p>
+    <p>Favorite 3</p>
+    <h5>Recent Reviews:</h5>
+    {% if recent_reviews %}
+        <ul>
+            {% for review in recent_reviews %}
+                <li class="rating-review">
+                    <time datetime="{{ review.created_at|date:'Y-m-d H:i:s' }}">
+                        {{ review.created_at|localtime|date:"m/d/Y" }}
+                    </time>
+                    <strong> {{ review.anime.title }}</strong> - {{ review.rating }}/5
+                    {% if review.comment %}
+                        <br><p style="margin-left: 40px;">{{ review.comment }}</p>
+                    {% endif %}
+                </li><br>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+{% endblock %}

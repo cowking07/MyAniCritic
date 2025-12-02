@@ -1,5 +1,6 @@
 {% extends 'catalog/base.html' %}
 {% load tz %}
+{% load static %}
 {% block title %}{{ anime.title }} {% endblock %}
 
 {% block content %}
@@ -24,11 +25,16 @@
         {% if ratings %}
             {% for rating in ratings %}
                 <br>
-                <time datetime="{{ rating.created_at|date:'Y-m-d H:i:s' }}">
-                    {{ rating.created_at|localtime|date:"m/d/Y, P" }}
-                </time>
-                <p><strong>{{ rating.user.username }}</strong> rated {{ rating.rating }} stars.</p>
-                <p style="margin-left:40px;">{{ rating.comment }}</p>
+                <div class="rating-review">
+                    <time datetime="{{ rating.created_at|date:'Y-m-d H:i:s' }}">
+                        {{ rating.created_at|localtime|date:"m/d/Y, P" }}
+                    </time>
+                    <p>
+                        <img class="small-avatar" src="{% static 'avatars/'|add:rating.user.userprofile.avatar %}" alt="User Avatar">
+                        <strong>{{ rating.user.username }}</strong> rated {{ rating.rating }} stars.
+                    </p>
+                    <p style="margin-left:40px;">{{ rating.comment }}</p>
+                </div>
                 <br>
             {% endfor %}
         {% else %}
