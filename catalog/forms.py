@@ -3,10 +3,10 @@ from .models import Rating, Anime, CrewMember, CrewRole, Character
 
 
 class RatingForm(forms.ModelForm):
+
   class Meta:
     model = Rating
     fields = {"comment", "rating"}
-
     labels = {
       'comment': '',
       'rating': '',

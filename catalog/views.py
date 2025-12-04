@@ -124,15 +124,18 @@ def diary(request):
 
 # Rating view
 # because classed based we use LoginRequiredMixin
-# needs the extended user
 
-# change
 @login_required
 def add_rating(request, pk):
   if request.user.is_authenticated:
     anime = Anime.objects.get(id=pk)
+    user = request.user
+    try:
+      rating_instance = Rating.objects.get(user=user, anime=anime)
+    except Rating.DoesNotExist:
+      rating_instance = None
     if request.method == "POST":
-      form = RatingForm(request.POST)
+      form = RatingForm(request.POST, instance=rating_instance)
       if form.is_valid():
         data = form.save(commit=False)
         data.comment = request.POST["comment"]
@@ -142,36 +145,15 @@ def add_rating(request, pk):
         data.save()
         return redirect("/anime_list/")
     else:
-      form = RatingForm()
-    return render(request, 'catalog/rating_form.html', {"form": form, "anime": anime})
+      form = RatingForm(instance=rating_instance)
+    context = {"form": form,
+               'anime': anime,
+               'title': 'Edit Rating' if rating_instance else 'Create Rating'}
+    return render(request, 'catalog/rating_form.html', context)
   else:
     return redirect("register:register")
 
 
-@login_required
-def edit_rating(request, anime_id, pk):
-  if request.user.is_authenticated:
-    anime = Anime.objects.get(id=anime_id)
-    rating = Rating.objects.get(id=pk)
-    #GET Request Handling The form variable was only defined within the if request.method == "POST" block, leading to
-    # UnboundLocalError for initial GET requests.
-    if request.user != rating.user:
-      return redirect("/anime_list/")
-    if request.method == "POST":
-      form = RatingForm(request.POST, instance=rating)
-      if form.is_valid():
-        data = form.save(commit=False)
-        data.comment = request.POST["comment"]
-        data.rating = request.POST["rating"]
-        data.user = request.user
-        data.anime = anime
-        data.save()
-        return redirect("/diary/")
-    else:
-      form = RatingForm(instance=rating)
-    return render(request, 'catalog/rating_form.html', {"form": form, "anime": anime})
-  else:
-      return redirect("register:register")
 
 
 
