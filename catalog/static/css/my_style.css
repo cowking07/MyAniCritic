@@ -299,3 +299,47 @@ body {
     display: flex;
     justify-content: space-between;
 }
+
+/*//////////Edit Profile Page\\\\\\\\\\*/
+
+.profile-edit{
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+}
+
+.avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    margin-bottom: 10px;
+    max-width:300px;
+}
+
+.avatar-option {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 4px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.avatar-option:hover {
+    border-color: #aaa;
+}
+
+.avatar-option.selected {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/*//////////Password Reset\\\\\\\\\\*/
+
+.password-reset {
+    background-color: gold;
+    border-radius: 15px;
+    padding: 0.5rem;
+    background-size: auto 100%;
+    display: inline-block;
+}

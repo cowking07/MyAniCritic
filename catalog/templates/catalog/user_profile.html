@@ -13,9 +13,15 @@
     <h5>Bio:</h5>
     <p>{{ profile.bio }}</p>
     <h5>Favorites:</h5>
-    <p>Favorite 1</p>
-    <p>Favorite 2</p>
-    <p>Favorite 3</p>
+    {% if profile.favorite_anime.all %}
+        <ul>
+        {% for anime in profile.favorite_anime.all %}
+            <li>{{ anime.title }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No favorites listed</p>
+    {% endif %}
     <h5>Recent Reviews:</h5>
     {% if recent_reviews %}
         <ul>
@@ -24,7 +30,8 @@
                     <time datetime="{{ review.created_at|date:'Y-m-d H:i:s' }}">
                         {{ review.created_at|localtime|date:"m/d/Y" }}
                     </time>
-                    <strong> {{ review.anime.title }}</strong> - {{ review.rating }}/5
+                    <a class="anime-navigation-link" href="{{ review.anime.get_absolute_url }}"><strong> {{ review.anime.title }}</strong></a>
+                     - {{ review.rating }}/5
                     {% if review.comment %}
                         <br><p style="margin-left: 40px;">{{ review.comment }}</p>
                     {% endif %}

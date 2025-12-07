@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Genre, Anime, Rating, CrewMember, CrewRole, Character, TrendingNews
+from .models import Genre, Anime, Rating, CrewMember, CrewRole, Character, TrendingNews, UserProfile
 
 admin.site.register(Genre)
 admin.site.register(Rating)
 admin.site.register(TrendingNews)
+admin.site.register(UserProfile)
 
 @admin.register(CrewMember)
 class CrewMemberAdmin(admin.ModelAdmin):
