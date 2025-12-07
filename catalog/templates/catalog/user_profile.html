@@ -6,7 +6,7 @@
     <div class="profile-header">
         <h2>{{ target_user.username }}'s Profile</h2>
         {% if is_owner %}
-            <a style=""href="{% url 'edit_profile' username=user.username %}">Edit Profile</a>
+            <button><a class="link-button" href="{% url 'edit_profile' username=user.username %}">Edit Profile</a></button>
         {% endif %}
     </div>
     <img src="{% static 'avatars/'|add:profile.avatar %}" alt="User Avatar">

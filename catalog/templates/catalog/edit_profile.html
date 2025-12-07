@@ -30,7 +30,7 @@
             </div>
             <button type="submit" name="update-profile">Update Profile</button>
         </form>
-    <a href="{% url 'user_profile' username=user.username %}">Cancel and go back</a>
+        <button><a class="link-button" href="{% url 'user_profile' username=user.username %}">Cancel and go back</a></button>
     </div>
 
     <script>

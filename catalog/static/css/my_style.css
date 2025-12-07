@@ -188,6 +188,11 @@ body {
     display: inline-block;
 }
 
+.link-button {
+    text-decoration: none !important;
+    color: black !important;
+}
+
 /*//////////Register Page\\\\\\\\\\*/
 
 .register-page {
