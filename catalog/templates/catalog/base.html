@@ -11,22 +11,23 @@
 </head>
 <body>
     <header class="py-3" style="background-color: gold;">
-    <div class="container">
-      <div class="d-flex align-items-center justify-content-between">
-          <h1 class="title" style="text-align: center;">AniCritic</h1>
+    <div class="header-container">
+        <div class="header-left"></div>
 
-        <!-- Search (right side) -->
-        <form class="d-flex" role="search" action="{% url 'search' %}" method="get" style="max-width: 360px;">
-          <input name="q"
-                 class="form-control me-2"
-                 type="search"
-                 placeholder="Search anime & crew"
-                 value="{{ request.GET.q|default:'' }}">
-          <button class="btn btn-dark" type="submit">Search</button>
-        </form>
-      </div>
+        <h1 class="title">AniCritic</h1>
+        <div class="header-right">
+            <!-- Search (right side) -->
+            <form class="d-flex" role="search" action="{% url 'search' %}" method="get" style="max-width: 360px;">
+                <input name="q"
+                        class="form-control me-2"
+                        type="search"
+                        placeholder="Search anime & crew"
+                        value="{{ request.GET.q|default:'' }}">
+                <button class="btn btn-dark" type="submit">Search</button>
+            </form>
+        </div>
     </div>
-  </header>
+    </header>
     <div class="navigation-bar">
         <ul class="navigation-list">
             <li class="navigation-item">
@@ -54,24 +55,24 @@
             {% endif %}
             <li class="dropdown">Account
                 <ul class="dropdown-menu">
-                   {% if user.is_authenticated %}
-                       <!--Profile Link will go here -->
-                       <li class="navigation-item">
+                    {% if user.is_authenticated %}
+                        <!--Profile Link will go here -->
+                        <li class="navigation-item">
                             <a class="navigation-link" href="{% url 'user_profile' username=user.username %}">Profile</a>
                         </li>
-                       <!--Logout button-->
-                       <li>
-                           <form action="{% url 'logout' %}" method="post">
-                               {% csrf_token %}
-                               <button type="submit">Log out</button>
-                           </form>
-                       </li>
-                   {% else %}
-                       <!--Login/Register-->
-                       <li class="navigation-item">
-                           <a class="navigation-link" href="{% url 'login' %}">Login/Register</a>
-                       </li>
-                   {% endif %}
+                        <!--Logout button-->
+                        <li>
+                            <form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit">Log out</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <!--Login/Register-->
+                        <li class="navigation-item">
+                            <a class="navigation-link" href="{% url 'login' %}">Login/Register</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </li>
         </ul>

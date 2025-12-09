@@ -4,11 +4,30 @@
     padding: 1rem 0;
 }
 
+.header-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.header-left {
+    max-width: 360px;
+    flex-grow: 1;
+}
+
 .title {
+    margin: auto;
+    flex-grow: 1;
     font-size: 3rem;
     text-align: center;
     font-weight: bold;
     color: black;
+}
+
+.header-right {
+    max-width: 360px;
+    flex-grow: 1;
 }
 
 .navigation-list {
