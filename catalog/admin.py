@@ -18,7 +18,7 @@ class AnimeAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'summary', 'type', 'genre', 'anime_image')
+            'fields': ('title', 'summary', 'type', 'genre', 'anime_image', "trailer_url")
         }),
     )
 

@@ -14,14 +14,21 @@
                 <p><strong>Summary:</strong> {{ anime.summary }}</p>
                 <p><strong>Genre:</strong> {{ anime.genre.all|join:", " }}</p>
                 <p><strong>Production Studio:</strong> {{ anime.production_studio }}</p>
-                <a href="{% url 'anime_crew_list' anime_id=anime.pk %}">View Crew List</a>
+                <p><a href="{% url 'anime_crew_list' anime_id=anime.pk %}">View Crew List</a></p>
+                <a href="{% url 'anime_list' %}">Back to Anime List</a><br>
             </div>
         </div>
 {#      Reverse for 'rating_form' with no arguments not found. 1 pattern(s) tried: ['rating_show/(?P<pk>[0-9]+)/\\Z']#}
 {#      I want to link every rating with the show and user that is being rated. #}
-        <a href="{% url 'add_rating' anime.id %}" class="btn btn-warning btn-sm">Add Rating</a>
-        <a href="{% url 'anime_list' %}">Back to Anime List</a><br>
-        <h3>Ratings</h3>
+           {%  if anime.trailer_url %}
+            <p>
+            <a href="{{ anime.trailer_url }}" target="_blank" class='btn btn-danger btn-sm'>▶ Watch Trailer</a>
+            </p>
+        {%  else %}
+            <p>No trailer available</p>
+        {%  endif %}
+    <h3>Ratings</h3>
+        <a href="{% url 'add_rating' anime.id %}" class="btn btn-light btn-sm">Add Rating</a>
         {% if ratings %}
             {% for rating in ratings %}
                 <br>
@@ -41,5 +48,4 @@
         {% else %}
             No ratings yet. Be the first to review!
         {% endif %}
-    </div>
 {% endblock %}
