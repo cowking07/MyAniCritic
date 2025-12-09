@@ -4,6 +4,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
 from datetime import date
 
+BAD_WORDS = ["ugly", "stupid", "shit", "fuck","gay","fucking","arse","asshole","bitch","bullshit","cock","cunt","dick","dick-head","dumb-ass","faggot","fucked","fucker","fucking","goddammit","horseshit","jack-ass","jackass","motherfucker","nigga","nigra","pigfucker","slut","wanker"]
+
 
 CrewChoices= [
     ('Director','Director'),
@@ -147,6 +149,15 @@ class Rating(models.Model):
     )
     comment = models.CharField(max_length=500,default='',blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        # Replace each bad word with asterisks
+        for word in BAD_WORDS:
+            self.comment = self.comment.replace(word, "*" * len(word))
+            self.comment = self.comment.replace(word.capitalize(), "*" * len(word))
+            self.comment = self.comment.replace(word.upper(), "*" * len(word))
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.user_id}'s {self.get_rating_display()} rating for {self.anime_id}"
