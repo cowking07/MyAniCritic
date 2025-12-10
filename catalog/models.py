@@ -56,8 +56,17 @@ class Genre(models.Model):
   def __str__(self):
     return self.name
 
+class StreamingPlatform(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    url = models.URLField()
+    icon = models.ImageField(upload_to='streaming_icons/', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 AnimeChoices = [('Movie','Movie'), ('Show','Show')]
+
+
 
 class Anime(models.Model):
     title = models.CharField(max_length=200)
@@ -67,7 +76,16 @@ class Anime(models.Model):
     anime_image = models.ImageField(upload_to='images/', null=True, blank=True)
     genre = models.ManyToManyField(Genre, )
     trailer_url = models.URLField(null=True, blank=True)
+
+
+    streaming_options = models.ManyToManyField(
+        StreamingPlatform,
+        blank=True,
+        related_name='anime',
+    )
+
     id = models.AutoField(primary_key=True)
+
     def __str__(self):
         return self.title
     # anime rating average

@@ -197,6 +197,25 @@ body {
     max-width: 20px;
 }
 
+.streaming-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0.5rem;
+}
+
+.streaming-item {
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.streaming-icon {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
 /*//////////Login/Logout Page\\\\\\\\\\\*/
 
 .login-logout-page {

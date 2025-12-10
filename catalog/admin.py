@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Genre, Anime, Rating, CrewMember, CrewRole, Character, TrendingNews, UserProfile
+from .models import Genre, Anime, Rating, CrewMember, CrewRole, Character, TrendingNews, UserProfile, StreamingPlatform
 
 admin.site.register(Genre)
 admin.site.register(Rating)
@@ -10,6 +10,10 @@ admin.site.register(UserProfile)
 class CrewMemberAdmin(admin.ModelAdmin):
     fields = ('first_name', 'last_name')
 
+@admin.register(StreamingPlatform)
+class StreamingPlatformAdmin(admin.ModelAdmin):
+    list_display = ('name', 'url')
+
 @admin.register(Anime)
 class AnimeAdmin(admin.ModelAdmin):
     list_display = ('title', 'type', 'display_genres')
@@ -18,7 +22,7 @@ class AnimeAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'summary', 'type', 'genre', 'anime_image', "trailer_url")
+            'fields': ('title', 'summary', 'type', 'genre', 'anime_image', "trailer_url", 'streaming_options')
         }),
     )
 
