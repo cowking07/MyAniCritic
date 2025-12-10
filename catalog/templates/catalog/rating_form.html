@@ -1,7 +1,10 @@
 {% extends 'catalog/base.html' %}
 {% block content %}
     <div class="rating-page">
-        <h3>Add Rating</h3>
+{#        {% if rating.created_by == before now %}#}
+        <h3> Add Rating</h3>
+{#      {% else %}#}
+        <h3> Edit Rating</h3
         <form action="{% url 'add_rating' anime.id %}" method="POST">
             {% csrf_token %}
         {#    Missing associated label#}
