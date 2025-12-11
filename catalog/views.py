@@ -12,7 +12,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone as django_timezone
 from .models import Genre, CrewMember, Anime, Rating, TrendingNews, CrewRole, Character, UserProfile
-from .forms import AnimeForm, CharacterForm, CrewRoleForm, CrewMemberForm
+from .forms import AnimeForm, CharacterForm, CrewRoleForm, CrewMemberForm, UserProfileForm, UserForm
 from catalog.forms import RatingForm
 import json
 
@@ -378,8 +378,24 @@ def user_profile_view(request, username):
 def edit_profile(request, username):
     user = get_object_or_404(User, username=username)
     profile = get_object_or_404(UserProfile, user=user)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=user)
+        profile_form = UserProfileForm(request.POST, instance=profile)
+        selected_avatar = request.POST.get('avatar')
+        if user_form.is_valid() and profile_form.is_valid() and selected_avatar:
+            user_form.save()
+            profile_instance = profile_form.save(commit=False)
+            profile_instance.avatar = selected_avatar
+            profile_instance.save()
+            profile_form.save_m2m()
+            return redirect('user_profile', username=user.username)
+    else:
+        user_form = UserForm(instance=user)
+        profile_form = UserProfileForm(instance=profile)
     context = {
-        'user': user,
+        'profile_form': profile_form,
+        'user_form': user_form,
         'profile': profile,
+        'user': user,
     }
     return render(request, 'catalog/edit_profile.html', context)

@@ -14,7 +14,8 @@
                 <p><strong>Summary:</strong> {{ anime.summary }}</p>
                 <p><strong>Genre:</strong> {{ anime.genre.all|join:", " }}</p>
                 <p><strong>Production Studio:</strong> {{ anime.production_studio }}</p>
-                <a href="{% url 'anime_crew_list' anime_id=anime.pk %}">View Crew List</a>
+                <p><a href="{% url 'anime_crew_list' anime_id=anime.pk %}">View Crew List</a></p>
+                <a href="{% url 'anime_list' %}">Back to Anime List</a><br>
             </div>
         </div>
 {#      Reverse for 'rating_form' with no arguments not found. 1 pattern(s) tried: ['rating_show/(?P<pk>[0-9]+)/\\Z']#}
@@ -36,7 +37,8 @@
                     </time>
                     <p>
                         <img class="small-avatar" src="{% static 'avatars/'|add:rating.user.userprofile.avatar %}" alt="User Avatar">
-                        <strong>{{ rating.user.username }}</strong> rated {{ rating.rating }} stars.
+                        <a class="navigation-link" href="{% url 'user_profile' username=rating.user.username %}"><strong>{{ rating.user.username }}</strong></a>
+                        rated {{ rating.rating }} stars.
                     </p>
                     <p style="margin-left:40px;">{{ rating.comment }}</p>
                 </div>
@@ -45,5 +47,4 @@
         {% else %}
             No ratings yet. Be the first to review!
         {% endif %}
-    </div>
 {% endblock %}

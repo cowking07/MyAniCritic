@@ -26,6 +26,7 @@
         <input type="submit" value="login">
         <input type="hidden" name="next" value="{{ next }}">
         </form>
-        <a class="navigation-link" style="font-weight: normal;" href="{% url 'register' %}">Sign Up Here</a>
+        <button><a class="link-button" href="{% url 'register' %}">Sign Up Here</a></button>
+        <button><a class="link-button" href="{% url 'password_reset' %}">Forgot password?</a></button>
     </div>
 {% endblock %}

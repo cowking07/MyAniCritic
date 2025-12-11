@@ -1,8 +1,96 @@
 {% extends 'catalog/base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
 
 {% block content %}
     <div class="profile-edit">
-        You made it!
+        <h2>Edit Profile</h2>
+        <form method="post" id="edit-profile-form">
+            {% csrf_token %}
+            <h4>Account Information</h4>
+            {{ user_form|crispy }}
+            <h4>Profile Information</h4>
+            <label>Choose your Avatar</label>
+            <div class="avatar-grid">
+                {% for choice in profile.AVATAR_CHOICES %}
+                    {% with filename=choice.0 %}
+                        <img src="{% static 'avatars/'|add:filename %}"
+                             alt="{{choice.1}}"
+                             class="avatar-option {% if profile.avatar == filename %}selected{% endif %}"
+                             data-avatar-filename="{{filename}}">
+                    {% endwith %}
+                {% endfor %}
+            </div>
+            <input type="hidden" name="avatar" id="avatar-input" value="{{ profile.avatar|default_if_none:"" }}">
+            {{ profile_form|crispy }}
+            <h3>Select your favorites</h3>
+            <div id="selected-anime-buttons">
+                <!--The script will populate this div element -->
+            </div>
+            <button type="submit" name="update-profile">Update Profile</button>
+        </form>
+        <button><a class="link-button" href="{% url 'user_profile' username=user.username %}">Cancel and go back</a></button>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const avatarOptions = document.querySelectorAll('.avatar-option');
+            const avatarInput = document.getElementById('avatar-input');
+            avatarOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    //remove selected class from all images
+                    avatarOptions.forEach(img => img.classList.remove('selected'));
+                    //add selected class to the clicked avatar
+                    option.classList.add('selected');
+                    //update the hidden form field value
+                    avatarInput.value = option.getAttribute('data-avatar-filename');
+                });
+            });
+            //Logic for the favorites section
+            const checkboxList = document.getElementById('anime-checkbox-list');
+            const buttonsContainer = document.getElementById('selected-anime-buttons');
+            const MAX_FAVORITES = 3;
+            if (checkboxList && buttonsContainer) {
+                const checkboxes = checkboxList.querySelectorAll('input[type="checkbox"]');
+
+                function updateButtons() {
+                    buttonsContainer.innerHTML = '';
+                    let checkedCount = 0;
+                    checkboxes.forEach(checkbox => {
+                        if (checkbox.checked) {
+                            checkedCount++;
+                            const label = document.querySelector(`label[for="${checkbox.id}"]`).textContent;
+                            const button = document.createElement('span');
+                            button.className = 'anime-button';
+                            button.innerHTML = '${label} <a href="#" class="remove-anime" data-checkbox-id="${checkbox.id}">x</a>';
+                            buttonsContainer.appendChild(button);
+                        }
+                    });
+                    checkboxes.forEach(checkbox => {
+                        if (!checkbox.checked && checkedCount >= MAX_FAVORITES) {
+                            checkbox.disabled = true;
+                        } else {
+                            checkbox.disabled = false;
+                        }
+                    });
+                }
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', updateButtons);
+                });
+                buttonsContainer.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('remove-anime')) {
+                        e.preventDefault();
+                        const checkboxId = e.target.getAttribute('data-checkbox-id');
+                        const checkbox = document.getElementById(checkboxId);
+                        if (checkbox) {
+                            checkbox.checked = false;
+                            checkbox.dispatchEvent(new Event('change'));
+                        }
+                    }
+                });
+                updateButtons();
+            }
+        });
+    </script>
 {% endblock %}
