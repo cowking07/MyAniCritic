@@ -4,7 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
 from datetime import date
 
-BAD_WORDS = ["ugly", "stupid","badword"]
+BAD_WORDS = ["ugly", "stupid", "shit", "bad word","fuck","gay","fucking","arse","asshole","bitch","bullshit","cock","cunt","dick","dick-head","dumb-ass","faggot","fucked","fucker","fucking","goddammit","horseshit","jack-ass","jackass","motherfucker","nigga","nigra","pigfucker","slut","wanker"]
 
 
 CrewChoices= [
