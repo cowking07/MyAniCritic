@@ -195,6 +195,7 @@ body {
 
 .small-avatar {
     max-width: 20px;
+    height: 20px;
 }
 
 .streaming-list {
@@ -210,8 +211,8 @@ body {
 
 .streaming-icon {
     height: 50px;
-    width: auto;
-    object-fit: contain;
+    max-width: 50px;
+    object-fit: fill;
     margin-right: 10px;
     vertical-align: middle;
 }
@@ -341,6 +342,11 @@ body {
 .profile-header {
     display: flex;
     justify-content: space-between;
+}
+
+.avatar-image {
+    height: 300px;
+    width: 300px;
 }
 
 /*//////////Edit Profile Page\\\\\\\\\\*/

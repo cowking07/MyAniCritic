@@ -9,7 +9,7 @@
             <button><a class="link-button" href="{% url 'edit_profile' username=user.username %}">Edit Profile</a></button>
         {% endif %}
     </div>
-    <img src="{% static 'avatars/'|add:profile.avatar %}" alt="User Avatar">
+    <img class="avatar-image" src="{% static 'avatars/'|add:profile.avatar %}" alt="User Avatar">
     <h5>Bio:</h5>
     <p>{{ profile.bio }}</p>
     <h5>Favorites:</h5>
