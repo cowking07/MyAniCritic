@@ -19,7 +19,12 @@
         </div>
 {#      Reverse for 'rating_form' with no arguments not found. 1 pattern(s) tried: ['rating_show/(?P<pk>[0-9]+)/\\Z']#}
 {#      I want to link every rating with the show and user that is being rated. #}
-        <a href="{% url 'add_rating' anime.id %}" class="btn btn-warning btn-sm">Add Rating</a>
+        {% if not existing_rating %}
+            <a href="{% url 'add_rating' anime.id %}" class="btn btn-warning btn-sm">Add Rating</a>
+        {% else %}
+            <a href="{% url 'add_rating' anime.id %}" class="btn btn-warning btn-sm">Edit Rating</a>
+        {% endif %}
+
         <a href="{% url 'anime_list' %}">Back to Anime List</a><br>
         <h3>Ratings</h3>
         {% if ratings %}
