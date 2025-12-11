@@ -4,6 +4,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
 from datetime import date
 
+BAD_WORDS = ["ugly", "stupid", "shit", "bad word","fuck","gay","fucking","arse","asshole","bitch","bullshit","cock","cunt","dick","dick-head","dumb-ass","faggot","fucked","fucker","fucking","goddammit","horseshit","jack-ass","jackass","motherfucker","nigga","nigra","pigfucker","slut","wanker"]
+
 
 CrewChoices= [
     ('Director','Director'),
@@ -54,8 +56,17 @@ class Genre(models.Model):
   def __str__(self):
     return self.name
 
+class StreamingPlatform(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    url = models.URLField()
+    icon = models.ImageField(upload_to='streaming_icons/', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 AnimeChoices = [('Movie','Movie'), ('Show','Show')]
+
+
 
 class Anime(models.Model):
     title = models.CharField(max_length=200)
@@ -64,7 +75,17 @@ class Anime(models.Model):
     production_studio = models.CharField(max_length=100)
     anime_image = models.ImageField(upload_to='images/', null=True, blank=True)
     genre = models.ManyToManyField(Genre, )
+    trailer_url = models.URLField(null=True, blank=True)
+
+
+    streaming_options = models.ManyToManyField(
+        StreamingPlatform,
+        blank=True,
+        related_name='anime',
+    )
+
     id = models.AutoField(primary_key=True)
+
     def __str__(self):
         return self.title
     # anime rating average
@@ -110,28 +131,30 @@ class RatingChoices(models.IntegerChoices):
     FOUR = 4, '4 stars'
     FIVE = 5, '5 stars'
 
-AVATAR_CHOICES = (
-    ('avatar1.jpg','Avatar 1'),
-    ('avatar2.jpg','Avatar 2'),
-    ('avatar3.jpg','Avatar 3'),
-    ('avatar4.jpg','Avatar 4'),
-    ('avatar5.jpg','Avatar 5'),
-    ('avatar6.jpg','Avatar 6'),
-    ('avatar7.jpg','Avatar 7'),
-    ('avatar8.jpg','Avatar 8'),
-    ('avatar9.jpg','Avatar 9'),
-    ('avatar10.jpg','Avatar 10'),
-    ('avatar11.jpg','Avatar 11'),
-    ('avatar12.jpg','Avatar 12'),
-)
+
 
 class UserProfile(models.Model):
-  user = models.OneToOneField(User, on_delete=models.CASCADE)
-  # add extra fields later like avatar, bio, etc.
-  avatar = models.CharField(max_length=100, choices=AVATAR_CHOICES, default='avatar1.jpg')
-  bio = models.TextField(max_length=500, default='Learn a little about me...')
-  def __str__(self):
-    return self.user.username
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # add extra fields later like avatar, bio, etc.
+    AVATAR_CHOICES = (
+        ('avatar1.jpg', 'Avatar 1'),
+        ('avatar2.jpg', 'Avatar 2'),
+        ('avatar3.jpg', 'Avatar 3'),
+        ('avatar4.jpg', 'Avatar 4'),
+        ('avatar5.jpg', 'Avatar 5'),
+        ('avatar6.jpg', 'Avatar 6'),
+        ('avatar7.jpg', 'Avatar 7'),
+        ('avatar8.jpg', 'Avatar 8'),
+        ('avatar9.jpg', 'Avatar 9'),
+        ('avatar10.jpg', 'Avatar 10'),
+        ('avatar11.jpg', 'Avatar 11'),
+        ('avatar12.jpg', 'Avatar 12'),
+    )
+    avatar = models.CharField(max_length=100, choices=AVATAR_CHOICES, default='avatar1.jpg')
+    bio = models.TextField(max_length=500, default='Learn a little about me...')
+    favorite_anime = models.ManyToManyField(Anime, blank=True)
+    def __str__(self):
+        return self.user.username
 
 class Rating(models.Model):
     anime = models.ForeignKey(Anime, on_delete=models.CASCADE, related_name='ratings')
@@ -144,6 +167,15 @@ class Rating(models.Model):
     )
     comment = models.CharField(max_length=500,default='',blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        # Replace each bad word with asterisks
+        for word in BAD_WORDS:
+            self.comment = self.comment.replace(word, "*" * len(word))
+            self.comment = self.comment.replace(word.capitalize(), "*" * len(word))
+            self.comment = self.comment.replace(word.upper(), "*" * len(word))
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.user_id}'s {self.get_rating_display()} rating for {self.anime_id}"

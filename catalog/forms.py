@@ -1,5 +1,5 @@
 from django import forms
-from .models import Rating, Anime, CrewMember, CrewRole, Character
+from .models import Rating, Anime, CrewMember, CrewRole, Character, User, UserProfile
 
 
 class RatingForm(forms.ModelForm):
@@ -32,3 +32,16 @@ class CrewMemberForm(forms.ModelForm):
     class Meta:
         model = CrewMember
         fields = ['first_name', 'last_name']
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['bio', 'favorite_anime']
+        widgets = {
+            'favorite_anime': forms.CheckboxSelectMultiple(),
+        }
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'username', 'email']
