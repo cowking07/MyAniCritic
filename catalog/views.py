@@ -134,21 +134,22 @@ def add_rating(request, pk):
       rating_instance = Rating.objects.get(user=user, anime=anime)
     except Rating.DoesNotExist:
       rating_instance = None
+
     if request.method == "POST":
       form = RatingForm(request.POST, instance=rating_instance)
       if form.is_valid():
         data = form.save(commit=False)
-        data.comment = request.POST["comment"]
-        data.rating = request.POST["rating"]
-        data.user = request.user
+        # deleted the manual grabbing as the form.save already does it
+        data.user = user
         data.anime = anime
         data.save()
-        return redirect("/anime_list/")
+        return redirect("/anime_list/", pk=pk)
     else:
       form = RatingForm(instance=rating_instance)
     context = {"form": form,
                'anime': anime,
-               'title': 'Edit Rating' if rating_instance else 'Create Rating'}
+               'existing_rating': rating_instance,
+               }
     return render(request, 'catalog/rating_form.html', context)
   else:
     return redirect("register:register")
@@ -175,7 +176,7 @@ def edit_rating(request, pk):
       form = RatingForm(instance=rating_instance)
     context = {"form": form,
                'anime': anime,
-               'title': 'Edit Rating' if rating_instance else 'Create Rating'}
+               }
     return render(request, 'catalog/rating_form.html', context)
   else:
     return redirect("register:register")
