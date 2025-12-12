@@ -28,6 +28,7 @@
 
         <a href="{% url 'anime_list' %}">Back to Anime List</a><br>
         {%  if anime.trailer_url %}
+            <br>
             <p>
             <a href="{{ anime.trailer_url }}" target="_blank" class='btn btn-danger btn-sm'>▶ Watch Trailer</a>
             </p>
