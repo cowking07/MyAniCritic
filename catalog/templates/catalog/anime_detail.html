@@ -18,13 +18,6 @@
                 <a href="{% url 'anime_list' %}">Back to Anime List</a><br>
             </div>
         </div>
-{#      Reverse for 'rating_form' with no arguments not found. 1 pattern(s) tried: ['rating_show/(?P<pk>[0-9]+)/\\Z']#}
-{#      I want to link every rating with the show and user that is being rated. #}
-        {% if not existing_rating %}
-            <a href="{% url 'add_rating' anime.id %}" class="btn btn-warning btn-sm">Add Rating</a>
-        {% else %}
-            <a href="{% url 'add_rating' anime.id %}" class="btn btn-warning btn-sm">Edit Rating</a>
-        {% endif %}
 
         <a href="{% url 'anime_list' %}">Back to Anime List</a><br>
         {%  if anime.trailer_url %}
@@ -53,9 +46,14 @@
             </div>
         {% endif %}
 <br>
-
+{#      Reverse for 'rating_form' with no arguments not found. 1 pattern(s) tried: ['rating_show/(?P<pk>[0-9]+)/\\Z']#}
+{#      I want to link every rating with the show and user that is being rated. #}
         <h3>Ratings</h3>
-        <a href="{% url 'add_rating' anime.id %}" class="btn btn-light btn-sm">Add Rating</a>
+        {% if not existing_rating %}
+            <a href="{% url 'add_rating' anime.id %}" class="btn btn-warning btn-sm">Add Rating</a>
+        {% else %}
+            <a href="{% url 'add_rating' anime.id %}" class="btn btn-warning btn-sm">Edit Rating</a>
+        {% endif %}
         {% if ratings %}
             {% for rating in ratings %}
                 <br>
