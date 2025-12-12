@@ -27,7 +27,34 @@
         {% endif %}
 
         <a href="{% url 'anime_list' %}">Back to Anime List</a><br>
+        {%  if anime.trailer_url %}
+            <p>
+            <a href="{{ anime.trailer_url }}" target="_blank" class='btn btn-danger btn-sm'>▶ Watch Trailer</a>
+            </p>
+        {%  else %}
+            <p>No trailer available</p>
+        {%  endif %}
+
+        <p><strong>Where to Watch:</strong>
+        {% if anime.streaming_options.all %}
+            <div class="streaming-icons">
+                {% for platform in anime.streaming_options.all %}
+                    <a href="{{ platform.url }}" target="_blank" title="{{ platform.name }}">
+                        {% if platform.icon %}
+                            <img src="{{ platform.icon.url }}"
+                                 alt="{{ platform.name }} logo"
+                                 class="streaming-icon">
+                        {% else %}
+                            {{ platform.name }}
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+<br>
+
         <h3>Ratings</h3>
+        <a href="{% url 'add_rating' anime.id %}" class="btn btn-light btn-sm">Add Rating</a>
         {% if ratings %}
             {% for rating in ratings %}
                 <br>
