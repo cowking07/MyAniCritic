@@ -37,6 +37,7 @@ class AC_ATS(unittest.TestCase):
 
         try:
             driver.find_element(By.XPATH, "//a[.//img[contains(translate(@alt,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'youtube')]]").click()
+            time.sleep(5)
             self.driver.close()
             assert True
 

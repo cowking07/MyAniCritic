@@ -40,6 +40,7 @@ class AC_ATS(unittest.TestCase):
         try:
         # Select watch trailer button
             driver.find_element(By.LINK_TEXT, "▶ Watch Trailer").click()
+            time.sleep(5)
             self.driver.close()
             assert True
 
