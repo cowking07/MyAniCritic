@@ -15,24 +15,23 @@ class AC_ATS(unittest.TestCase):
 
 
     def test_AC(self):
-        # setup for test
         driver = self.driver
         driver.maximize_window()
-        user = 'testuser'
+        user = 'testUser'
         pwd = 'AnimeForever'
-        driver.get("http://127.0.0.1:8000/admin")
+        driver.get("http://127.0.0.1:8000")
+        time.sleep(3)
+        driver.find_element(By.XPATH, "//li[@class='dropdown' and contains(., 'Account')]").click()
+        time.sleep(3)
+        driver.find_element(By.XPATH, "//a[contains(., 'Login/Register')]").click()
         time.sleep(3)
         elem = driver.find_element(By.ID, "id_username")
         elem.send_keys(user)
-        time.sleep(3)
         elem = driver.find_element(By.ID, "id_password")
         elem.send_keys(pwd)
         time.sleep(3)
         elem.send_keys(Keys.RETURN)
         time.sleep(3)
-        driver.get("http://127.0.0.1:8000")
-        time.sleep(3)
-        # Locate edit rating form
         # Select diary page
         driver.find_element(By.XPATH, "//a[contains(.,'Diary')]").click()
         time.sleep(3)
