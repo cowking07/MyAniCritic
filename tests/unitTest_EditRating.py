@@ -1,3 +1,4 @@
+import random
 import unittest
 import time
 from selenium import webdriver
@@ -39,7 +40,10 @@ class AC_ATS(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, "Edit Rating").click()
         time.sleep(3)
         try:
-          comment = "testcomment"
+          #Random inputs
+          random_comment_number = random.randint(1, 100)
+          random_rating_index = random.randint(0, 4)
+          comment = "testcomment" + str(random_comment_number)
           # Change rating comment
           elem = driver.find_element(By.ID, "comment")
           elem.send_keys(comment)
@@ -47,7 +51,7 @@ class AC_ATS(unittest.TestCase):
           # Change dropdown rating stars
           elem = driver.find_element(By.ID, "rating")
           elem2 = Select(elem)
-          elem2.select_by_index(1)
+          elem2.select_by_index(random_rating_index)
           elem.click()
           time.sleep(3)
           # Click on edit rating button
